@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "27962480220",
+    "project_id": "atom-journey",
+    "storage_bucket": "atom-journey.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27962480220:android:9f7e0761b39e7be1043899",
+        "android_client_info": {
+          "package_name": "com.vfg.silkroad.goo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEmjR81iV9aJkINzAH60gVLVHrsSK2bX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
