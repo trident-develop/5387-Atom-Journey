@@ -39,6 +39,7 @@ import com.vfg.silkroad.goo.data.Subtopic
 import com.vfg.silkroad.goo.data.Topic
 import com.vfg.silkroad.goo.data.TopicsRepo
 import com.vfg.silkroad.goo.ui.components.SubtopicHero
+import com.vfg.silkroad.goo.ui.components.rememberThrottledClick
 import com.vfg.silkroad.goo.ui.theme.DeepBlueCard
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlue
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlueMuted
@@ -105,6 +106,7 @@ fun SubtopicStudyScreen(
 
 @Composable
 private fun TopBar(title: String, accent: Color, onBack: () -> Unit) {
+    val throttledBack = rememberThrottledClick(onClick = onBack)
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,7 +119,7 @@ private fun TopBar(title: String, accent: Color, onBack: () -> Unit) {
                 .clip(CircleShape)
                 .background(accent.copy(alpha = 0.18f))
                 .border(1.dp, accent.copy(alpha = 0.6f), CircleShape)
-                .clickable { onBack() },
+                .clickable { throttledBack() },
             contentAlignment = Alignment.Center
         ) {
             Text("‹", color = accent, fontWeight = FontWeight.Bold)

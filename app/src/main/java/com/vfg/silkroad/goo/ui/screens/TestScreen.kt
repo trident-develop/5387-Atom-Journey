@@ -53,6 +53,7 @@ import com.vfg.silkroad.goo.data.QuestionsRepo
 import com.vfg.silkroad.goo.data.Topic
 import com.vfg.silkroad.goo.data.TopicsRepo
 import com.vfg.silkroad.goo.ui.components.GradientProgress
+import com.vfg.silkroad.goo.ui.components.rememberThrottledClick
 import com.vfg.silkroad.goo.ui.theme.AcidGreen
 import com.vfg.silkroad.goo.ui.theme.DeepBlueCard
 import com.vfg.silkroad.goo.ui.theme.DeepBlueElevated
@@ -282,6 +283,7 @@ private fun TestTopBar(title: String, timeRemaining: Int, onBack: () -> Unit) {
     val timerColor = if (urgent) NeonRed.copy(alpha = pulse) else ElectricCyan
     val mins = timeRemaining / 60
     val secs = timeRemaining % 60
+    val throttledBack = rememberThrottledClick(onClick = onBack)
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -294,7 +296,7 @@ private fun TestTopBar(title: String, timeRemaining: Int, onBack: () -> Unit) {
                 .clip(CircleShape)
                 .background(ElectricCyan.copy(alpha = 0.18f))
                 .border(1.dp, ElectricCyan.copy(alpha = 0.6f), CircleShape)
-                .clickable { onBack() },
+                .clickable { throttledBack() },
             contentAlignment = Alignment.Center
         ) { Text("‹", color = ElectricCyan, fontWeight = FontWeight.Bold) }
         Spacer(Modifier.width(12.dp))
