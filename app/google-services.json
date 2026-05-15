@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:27962480220:android:9f7e0761b39e7be1043899",
+        "mobilesdk_app_id": "1:27962480220:android:52d7429b44ded45f043899",
         "android_client_info": {
-          "package_name": "com.vfg.silkroad.goo"
+          "package_name": "ge.bebi.balloon.pop.g"
         }
       },
       "oauth_client": [],

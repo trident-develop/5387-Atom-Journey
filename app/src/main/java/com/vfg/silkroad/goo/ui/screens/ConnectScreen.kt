@@ -41,11 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.vfg.silkroad.goo.R
 import com.vfg.silkroad.goo.ui.nav.Routes
 import com.vfg.silkroad.goo.ui.theme.AtomFont
 import com.vfg.silkroad.goo.ui.theme.DeepBlueCard
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlue
+import ge.bebi.balloon.pop.g.R
 
 @Composable
 fun ConnectScreen(navController: NavController) {
