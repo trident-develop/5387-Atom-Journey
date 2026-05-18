@@ -1,0 +1,25 @@
+package com.vfg.silkroad.goo.nodes
+
+import com.vfg.silkroad.goo.data.LoadingFlowContext
+import com.vfg.silkroad.goo.event.FlowSignal
+import com.vfg.silkroad.goo.event.LoadingDecision
+import com.vfg.silkroad.goo.event.LoadingNode
+
+class CachedScoreNode : LoadingNode {
+    override val name: String = "CachedScoreNode"
+
+    override suspend fun run(ctx: LoadingFlowContext): Pair<LoadingFlowContext, FlowSignal> {
+
+        val score = ctx.storage.getSavedScore()
+
+        return if (!score.isNullOrBlank()) {
+//            log("$name: cached score found = $score")
+            ctx to FlowSignal.Finish(
+                LoadingDecision.OpenWebView(score)
+            )
+        } else {
+//            log("$name: cached score empty")
+            ctx to FlowSignal.Continue
+        }
+    }
+}

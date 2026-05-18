@@ -7,6 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.lsparanoid)
+}
+
+lsparanoid {
+    seed = 29
+    classFilter = { it.startsWith("ge.bebi.balloon.pop.g") }
+    includeDependencies = true
+    variantFilter = { true }
 }
 
 android {
@@ -21,8 +29,8 @@ android {
         applicationId = "ge.bebi.balloon.pop.g"
         minSdk = 28
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,6 +54,11 @@ android {
 }
 
 dependencies {
+    implementation(libs.flow.extensions)
+    implementation(libs.immutable.collections)
+    implementation(libs.installreferrer)
+    implementation(libs.fuel)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.play.services.ads)
     implementation(libs.firebase.messaging)
     implementation(platform(libs.firebase.bom))

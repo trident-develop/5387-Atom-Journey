@@ -1,5 +1,6 @@
 package com.vfg.silkroad.goo.ui.screens
 
+import android.os.SystemClock
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -29,6 +30,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,7 +42,6 @@ import com.vfg.silkroad.goo.data.Subtopic
 import com.vfg.silkroad.goo.data.Topic
 import com.vfg.silkroad.goo.data.TopicsRepo
 import com.vfg.silkroad.goo.ui.components.SubtopicHero
-import com.vfg.silkroad.goo.ui.components.rememberThrottledClick
 import com.vfg.silkroad.goo.ui.theme.DeepBlueCard
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlue
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlueMuted
@@ -219,5 +221,20 @@ private fun ExampleCard(index: Int, text: String, accent: Color) {
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.weight(1f)
         )
+    }
+}
+
+@Composable
+fun rememberThrottledClick(
+    cooldownMs: Long = 1000L,
+    onClick: () -> Unit,
+): () -> Unit {
+    val lastClick = remember { mutableLongStateOf(0L) }
+    return {
+        val now = SystemClock.uptimeMillis()
+        if (now - lastClick.longValue >= cooldownMs) {
+            lastClick.longValue = now
+            onClick()
+        }
     }
 }

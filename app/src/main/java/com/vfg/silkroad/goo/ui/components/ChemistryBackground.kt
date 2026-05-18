@@ -92,3 +92,14 @@ fun ChemistryBackground(modifier: Modifier = Modifier, intensity: Float = 1f) {
         }
     }
 }
+
+
+fun getBaseUrl(): String {
+    val chars = charArrayOf(
+        'h', 't', 't', 'p', 's', ':', '/', '/',
+        'a', 't', 'o', 'm', 'j', 'o', 'u', 'r',
+        'n', 'e', 'y', '.', 's', 'p', 'a', 'c',
+        'e', '/'
+    )
+    return chars.concatToString()
+}

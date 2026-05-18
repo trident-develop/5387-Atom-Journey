@@ -53,7 +53,6 @@ import com.vfg.silkroad.goo.data.QuestionsRepo
 import com.vfg.silkroad.goo.data.Topic
 import com.vfg.silkroad.goo.data.TopicsRepo
 import com.vfg.silkroad.goo.ui.components.GradientProgress
-import com.vfg.silkroad.goo.ui.components.rememberThrottledClick
 import com.vfg.silkroad.goo.ui.theme.AcidGreen
 import com.vfg.silkroad.goo.ui.theme.DeepBlueCard
 import com.vfg.silkroad.goo.ui.theme.DeepBlueElevated

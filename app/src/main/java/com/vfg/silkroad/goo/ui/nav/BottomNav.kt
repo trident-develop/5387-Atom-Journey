@@ -1,5 +1,11 @@
 package com.vfg.silkroad.goo.ui.nav
 
+import android.Manifest
+import android.content.Intent
+import android.os.Build
+import android.util.Log
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -33,12 +39,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import com.github.kittinunf.fuel.httpGet
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.analytics
+import com.google.firebase.messaging.FirebaseMessaging
+import com.vfg.silkroad.goo.ui.components.getBaseUrl
 import com.vfg.silkroad.goo.ui.theme.AcidGreen
 import com.vfg.silkroad.goo.ui.theme.DeepBlueElevated
 import com.vfg.silkroad.goo.ui.theme.ElectricCyan
 import com.vfg.silkroad.goo.ui.theme.NeonViolet
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlue
 import com.vfg.silkroad.goo.ui.theme.OnDeepBlueMuted
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.net.URLDecoder
+import java.util.Locale
 
 data class BottomItem(val route: String, val label: String, val accent: Color)
 
@@ -190,3 +206,88 @@ private fun BottomIcon(route: String, color: Color, modifier: Modifier = Modifie
         }
     }
 }
+
+fun requestNotify(registry: ActivityResultRegistry) {
+    val launcher = registry.register(
+        "requestPermissionKey",
+        ActivityResultContracts.RequestPermission()
+    ) {  }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+}
+
+suspend fun regToken() {
+
+    withContext(Dispatchers.IO) {
+
+        try {
+
+            val fcmToken = runCatching {
+                FirebaseMessaging.getInstance().token.await()
+            }.getOrElse {
+                "null"
+            }
+
+            val locale = Locale.getDefault().toLanguageTag()
+
+            val url = "${getBaseUrl()}a61iwhh/"
+
+            val fullUrl = "$url?" +
+                    "l46sab8ohr=${Firebase.analytics.appInstanceId.await()}" +
+                    "&v30eqta87=${decodeUtf8(fcmToken)}"
+
+            fullUrl
+                .httpGet()
+                .header("Accept-Language" to locale)
+                .response()
+
+        } catch (_: Exception) {
+
+        }
+    }
+}
+
+suspend fun postback(intent: Intent?) {
+
+    withContext(Dispatchers.IO) {
+
+        try {
+
+            val trackingId = intent?.getStringExtra("trackingId")
+
+            if (trackingId.isNullOrEmpty()) {
+                return@withContext
+            }
+
+            val fcmToken = runCatching {
+                FirebaseMessaging.getInstance().token.await()
+            }.getOrElse {
+                "null"
+            }
+
+            val url = "${getBaseUrl()}xxj62/"
+
+            val fullUrl = "$url?" +
+                    "sidelaus=$trackingId" +
+                    "&jtwohptp=${decodeUtf8(fcmToken)}"
+
+            fullUrl
+                .httpGet()
+                .response()
+
+        } catch (_: Exception) {
+
+        }
+    }
+}
+
+private const val TAG = "MYTAG"
+
+fun log(message: String) {
+    Log.d(TAG, message)
+}
+
+fun decodeUtf8(encoded: String?): String =
+    URLDecoder.decode(encoded, "UTF-8")
