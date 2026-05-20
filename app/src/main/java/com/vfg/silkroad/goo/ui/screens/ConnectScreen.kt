@@ -60,12 +60,12 @@ fun ConnectScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-//        Image(
-//            painter = painterResource(R.drawable.bg_1),
-//            contentDescription = null,
-//            contentScale = ContentScale.Crop,
-//            modifier = Modifier.fillMaxSize()
-//        )
+        Image(
+            painter = painterResource(R.drawable.bg_1),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
 
         Box(
             modifier = Modifier
